@@ -1,0 +1,26 @@
+{{ template "header" }}
+<style>
+{{ template "index-css" }}
+</style>
+{{ template "midHeader" "Quran" }}
+
+<h1 class="alquran-headline">
+  <span>The Quran </span><img src="/static/images/quran.png" alt="Quean pic">
+</h1>
+
+<div id="root">
+{{ range .Chapters }}
+<a class="surah-link" href="/{{.Id}}">
+<div class="surah">
+  <p>
+    <span class="surah-no">{{.Id}}</span>
+    <span>{{.Name}}</span>
+    <span class="arabic-surah-name-li">{{.AraName}}</span>
+  </p>
+</div>
+</a>
+{{ end }}
+
+</div>
+
+{{ template "footer" }}

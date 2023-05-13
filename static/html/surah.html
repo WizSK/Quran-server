@@ -1,0 +1,32 @@
+{{ template "header" }}
+<style>
+{{ template "surah-css" }}
+</style>
+
+{{ template "midHeader" .SurahInfo.Chapter.Name }}
+
+<div class="surah-body">
+  <h1>{{ .SurahInfo.Chapter.Name }}</h1>
+
+  <div class="imfo">{{ .SurahInfo.Chapter.Place}}</div>
+  <!-- <div class="ayas"> {{ .SurahInfo.Chapter.VersesCount }} </div> -->
+  <!-- <div id="translation-imfo"></div> -->
+
+  {{ if  .SurahInfo.Chapter.Bismillah }}
+    <p id="bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
+  {{ end }}
+
+
+  {{ range $i, $val := $.Aarabic.Verses }}
+  <div class="aya">
+    <div class="verse-key">{{ $val.Key }}</div>
+    <p class="aya-text">{{ $val.Text }}</p>
+
+    <p class="en-trans">{{ (index ((index $.Tranlaions 0).Translations) $i).Text }}</p>
+    <p class="bn-trans">{{ (index ((index $.Tranlaions 1).Translations) $i).Text }}</p>
+  </div>
+  {{ end }}
+
+</div>
+
+{{ template "footer" }}

@@ -1,0 +1,84 @@
+{{ define "surah-css" }}
+
+@font-face {
+    font-family: arabic-c-font;
+    src: url(static/fonts/arabic);
+}
+
+
+@font-face {
+    font-family: english-font;
+    src: url(static/fonts/english);
+}
+
+@font-face {
+    font-family: bangla-font;
+    src: url(static/fonts/bangla);
+}
+
+
+.imfo {
+    margin-bottom: .7rem;
+}
+
+#bismillah {
+    font-family: arabic-c-font;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.surah-body {
+    font-family: english-font;
+    /* margin: 0.5rem 1rem; */
+}
+
+.surah-body h1 {
+    margin: 0.7rem 0 0.5rem 1rem;
+}
+
+.surah-body .imfo {
+    text-transform: uppercase;
+    margin-left: 1rem;
+    font-weight: 600;
+}
+
+.surah-body .verse-key {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.surah-body .aya {
+    border-top: 1px solid rgb(85, 85, 85);
+    border-bottom: 1px solid black;
+    background-color: rgba(241, 241, 241, 0.452);
+    padding: 0.5rem 1rem;
+}
+
+.surah-body .aya-text {
+    font-family: arabic-c-font;
+    text-align: right;
+    font-size: 2.3rem;
+    margin-top: 0.5rem;
+}
+
+.surah-body .bn-trans {
+    font-family: bangla-font, sans-serif;
+    font-size: 1.4rem;
+}
+.surah-body .en-trans {
+    font-size: 1.2rem;
+}
+
+.surah-body .en-trans sup {
+    display:none
+}
+
+
+@media (min-width: 768px) {
+    .surah-body .aya {
+        padding-left: 7rem;
+        padding-right: 7rem;
+    }
+}
+
+{{ end }}
