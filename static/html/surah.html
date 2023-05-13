@@ -18,7 +18,7 @@
 
 
   {{ range $i, $val := $.Aarabic.Verses }}
-  <div class="aya">
+  <div class="aya" id="{{ $val.Id }}">
     <div class="verse-key">{{ $val.Key }}</div>
     <p class="aya-text">{{ $val.Text }}</p>
 

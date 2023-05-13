@@ -94,6 +94,12 @@ func getSurah(c *gin.Context) {
 		return
 	}
 
+	// for id number being some number offset!
+	offset := all.Aarabic.Verses[0].Id - 1
+	for i := 0; i < len(all.Aarabic.Verses); i++ {
+		all.Aarabic.Verses[i].Id = all.Aarabic.Verses[i].Id - offset
+	}
+
 	surahBuff := new(bytes.Buffer)
 	surahTemplate.Execute(surahBuff, all)
 

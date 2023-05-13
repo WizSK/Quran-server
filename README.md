@@ -10,7 +10,7 @@ This is a Small server written entirely in go. And it's fully server side redere
 
 ## Todo
 - [x] Cash the main page with maps
-- [ ] Jump to any line with "http://localhost/2/255" to goto lile 255 of chapter 2
+- [x] Jump to any line with "http://localhost/2#255" to go-to line 255 of chapter 2
 - [ ] Add funcionality to add any translations.
 - [ ] Work on styling
     - [ ] Day and night mode
