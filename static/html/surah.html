@@ -22,11 +22,16 @@
     <div class="verse-key">{{ $val.Key }}</div>
     <p class="aya-text">{{ $val.Text }}</p>
 
-    <p class="en-trans">{{ (index ((index $.Tranlaions 0).Translations) $i).Text }}</p>
-    <p class="bn-trans">{{ (index ((index $.Tranlaions 1).Translations) $i).Text }}</p>
+    {{ $i = $i }}
+    <p class="bn-trans">{{ (index $.BanglaTranslation.Translations $i).Text }}</p>
+    {{ range $.Translaions }}
+    <p class="en-trans">{{ (index .Translations $i).Text }}</p>
+    {{ end }}
+
   </div>
   {{ end }}
 
 </div>
 
 {{ template "footer" }}
+

@@ -45,24 +45,32 @@ func getSurah(c *gin.Context) {
 	}
 	defer surahInfo.Close()
 
-	surahEnlish, err := os.Open("static/json/english/" + idx + ".json")
+	var all CompleteSurah
+	// Trnaslations
+	for i, path := range tnaslaitonList {
+		translation, err := os.Open("static/json/" + path + idx + ".json")
+		if err != nil {
+			c.Writer.Write([]byte("Page Not found"))
+			fmt.Println(err)
+			return
+		}
 
-	if err != nil {
-		c.Writer.Write([]byte("Page Not found"))
-		fmt.Println(err)
-		return
+		all.Translaions = append(all.Translaions, TranslatedVerses{})
+		if err = json.NewDecoder(translation).Decode(&all.Translaions[i]); err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		translation.Close()
 	}
-	defer surahEnlish.Close()
 
 	surahBangla, err := os.Open("static/json/bangla/" + idx + ".json")
-
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	defer surahBangla.Close()
 
-	var all CompleteSurah
 	// ara
 	if err = json.NewDecoder(surahArabic).Decode(&all.Aarabic); err != nil {
 		fmt.Println(err)
@@ -75,15 +83,7 @@ func getSurah(c *gin.Context) {
 		return
 	}
 
-	// trans
-	all.Tranlaions = append(all.Tranlaions, TranslatedVerses{})
-	if err = json.NewDecoder(surahEnlish).Decode(&all.Tranlaions[0]); err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	all.Tranlaions = append(all.Tranlaions, TranslatedVerses{})
-	if err = json.NewDecoder(surahBangla).Decode(&all.Tranlaions[1]); err != nil {
+	if err = json.NewDecoder(surahBangla).Decode(&all.BanglaTranslation); err != nil {
 		fmt.Println(err)
 		return
 	}

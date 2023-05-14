@@ -6,6 +6,26 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// translations file structure
+/*
+
+static/json/
+├─ english/clear_quran/
+│  ├─ 1.json
+│  ├─ 2.json
+│  ├─ ...json
+│
+├─ Your Language
+│  ├─ 1.json
+│  ├─ 2.json
+│  ├─ ...json
+
+*/
+
+// here static/json/
+// var tnaslaitonList = []string{"english/clear_quran/", "english/saheeh_internatioanl/"}
+var tnaslaitonList = []string{"english/clear_quran/"}
+
 func main() {
 	prot := "8000"
 	if len(os.Args) == 2 {

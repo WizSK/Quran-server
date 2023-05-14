@@ -3,7 +3,8 @@ package main
 // arabic + translation combnned
 type CompleteSurah struct {
 	Aarabic    Ayas
-	Tranlaions []TranslatedVerses
+	Translaions []TranslatedVerses
+	BanglaTranslation TranslatedVerses // local lang of mine.
 	SurahInfo  ChapterInfo
 }
 
