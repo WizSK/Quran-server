@@ -1,10 +1,16 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	prot := "8000"
+	if len(os.Args) == 2 {
+		prot = os.Args[1]
+	}
 	route := gin.Default()
 
 	route.GET("/", getIndex)
@@ -16,5 +22,5 @@ func main() {
 	route.StaticFile("static/images/favicon", "static/assets/quran-faviocn.png")
 	route.StaticFile("static/images/quran.png", "static/assets/quran.png")
 
-	route.Run(":8000")
+	route.Run(":" + prot)
 }
