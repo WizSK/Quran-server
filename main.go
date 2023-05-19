@@ -34,20 +34,22 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	t := time.Now()
 	if len(r.URL.Path) == 1 {
 		getIndex(w, r)
-		printStat(w, r, t)
+		printStat(r, t)
 		return
 	}
 
 	url := string(r.URL.Path[1:])
 	getSurah(w, r, url)
-	printStat(w, r, t)
+	printStat(r, t)
 
 }
 
-func printStat(w http.ResponseWriter, r *http.Request, dur time.Time) {
-	fmt.Printf("[stat] %s | %13s | %15s | %s \"%s\"\n",
-		time.Now().Format("2006/01/02 - 3:04:05 PM"),
+func printStat(r *http.Request, dur time.Time) {
+	fmt.Printf("[stat] %s | %13s | %15s | %s | \"%s\"\n",
+		time.Now().Format("2006/01/02 - 03:04:05 PM"),
 		time.Since(dur),
 		strings.Split(r.RemoteAddr, ":")[0],
-		r.Method, r.URL.Path)
+		r.Method,
+		r.URL.Path,
+	)
 }

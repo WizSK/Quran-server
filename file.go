@@ -34,22 +34,22 @@ func staticHandeler(w http.ResponseWriter, r *http.Request) {
 		switch v[2] {
 		case "arabic":
 			http.ServeFile(w, r, "static/assets/uthman_tn09.otf")
-			printStat(w, r, dur)
+			printStat(r, dur)
 			return
 
 		case "english":
 			http.ServeFile(w, r, "static/assets/Lato-Regular.ttf")
-			printStat(w, r, dur)
+			printStat(r, dur)
 			return
 
 		case "bangla":
 			http.ServeFile(w, r, "static/assets/SolaimanLipi.ttf")
-			printStat(w, r, dur)
+			printStat(r, dur)
 			return
 
 		default:
 			w.Write([]byte("no file found"))
-			printStat(w, r, dur)
+			printStat(r, dur)
 			return
 		}
 
@@ -64,17 +64,17 @@ func staticHandeler(w http.ResponseWriter, r *http.Request) {
 		switch v[2] {
 		case "favicon":
 			http.ServeFile(w, r, "static/assets/quran-faviocn.png")
-			printStat(w, r, dur)
+			printStat(r, dur)
 			return
 
 		case "quran.png":
 			http.ServeFile(w, r, "static/assets/quran.png")
-			printStat(w, r, dur)
+			printStat(r, dur)
 			return
 
 		default:
 			w.Write([]byte("no file found"))
-			printStat(w, r, dur)
+			printStat(r, dur)
 			return
 		}
 
