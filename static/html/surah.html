@@ -5,12 +5,14 @@
 
 {{ template "midHeader" .SurahInfo.Chapter.Name }}
 
-<div class="surah-body">
+  <div class="surah-body">
   <h1>{{ .SurahInfo.Chapter.Name }}</h1>
+
 
   <div class="imfo">{{ .SurahInfo.Chapter.Place}}</div>
   <!-- <div class="ayas"> {{ .SurahInfo.Chapter.VersesCount }} </div> -->
   <!-- <div id="translation-imfo"></div> -->
+  <button id="theme-tgl">Theme</button>
 
   {{ if  .SurahInfo.Chapter.Bismillah }}
     <p id="bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
@@ -33,5 +35,19 @@
 
 </div>
 
+<script>
+  // just for dark and light
+  const Classes = document.body.classList;
+  Classes.add("dark");
+  document.getElementById("theme-tgl").addEventListener("click", () => {
+    if (Classes.contains("dark")) {
+      Classes.remove("dark");
+      Classes.add("light");
+    } else {
+      Classes.add("dark");
+      Classes.remove("light");
+    }
+  })
+</script>
 {{ template "footer" }}
 

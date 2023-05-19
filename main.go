@@ -1,46 +1,53 @@
 package main
 
 import (
+	"fmt"
+	"net/http"
 	"os"
-
-	"github.com/gin-gonic/gin"
+	"strings"
+	"time"
 )
 
-// translations file structure
-/*
-
-static/json/
-├─ english/clear_quran/
-│  ├─ 1.json
-│  ├─ 2.json
-│  ├─ ...json
-│
-├─ Your Language
-│  ├─ 1.json
-│  ├─ 2.json
-│  ├─ ...json
-
-*/
-
-// here static/json/
-// var tnaslaitonList = []string{"english/clear_quran/", "english/saheeh_internatioanl/"}
-var tnaslaitonList = []string{"english/clear_quran/"}
-
 func main() {
-	prot := "8000"
+	http.HandleFunc("/", handler)
+	http.HandleFunc("/static/", staticHandeler)
+
+	var err error
+	port := ":8080"
 	if len(os.Args) == 2 {
-		prot = os.Args[1]
+		port = ":" + os.Args[1]
+		fmt.Printf("Running at: http://localhost%s/ \n\n", port)
+		err = http.ListenAndServe(port, nil)
+	} else {
+		fmt.Printf("Running at: http://localhost%s/ \n\n", port)
+		err = http.ListenAndServe(port, nil)
 	}
-	route := gin.Default()
 
-	route.GET("/", getIndex)
-	route.GET("/:id", getSurah)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
-	route.StaticFile("static/fonts/arabic", "static/assets/uthman_tn09.otf")
-	route.StaticFile("static/fonts/bangla", "static/assets/SolaimanLipi.ttf")
-	route.StaticFile("static/fonts/english", "static/assets/Lato-Regular.ttf")
-	route.StaticFile("static/images/favicon", "static/assets/quran-faviocn.png")
-	route.StaticFile("static/images/quran.png", "static/assets/quran.png")
+}
 
-	route.Run(":" + prot)
+func handler(w http.ResponseWriter, r *http.Request) {
+	t := time.Now()
+	if len(r.URL.Path) == 1 {
+		getIndex(w, r)
+		printStat(w, r, t)
+		return
+	}
+
+	url := string(r.URL.Path[1:])
+	getSurah(w, r, url)
+	printStat(w, r, t)
+
+}
+
+func printStat(w http.ResponseWriter, r *http.Request, dur time.Time) {
+	fmt.Printf("[stat] %s | %13s | %15s | %s \"%s\"\n",
+		time.Now().Format("2006/01/02 - 3:04:05 PM"),
+		time.Since(dur),
+		strings.Split(r.RemoteAddr, ":")[0],
+		r.Method, r.URL.Path)
 }

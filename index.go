@@ -1,25 +1,22 @@
 package main
-
+ 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"text/template"
+	"net/http"
 	"os"
-
-	"github.com/gin-gonic/gin"
+	"text/template"
 )
 
 var IndexCash []byte
 
-func getIndex(c *gin.Context) {
-
+func getIndex(w http.ResponseWriter, r *http.Request) {
 	// Cashed
 	if len(IndexCash) > 0 {
-		c.Writer.Write(IndexCash)
+		w.Write(IndexCash)
 		return
 	}
-
 
 	// const surahUrl string = "https://api.quran.com/api/v4/chapters"
 	suras := new(bytes.Buffer)
@@ -50,5 +47,5 @@ func getIndex(c *gin.Context) {
 	p.Execute(suras, surahJson)
 
 	IndexCash = suras.Bytes()
-	c.Writer.Write(suras.Bytes())
+	w.Write(suras.Bytes())
 }

@@ -4,33 +4,31 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"os"
 	"strconv"
 	"text/template"
-
-	"github.com/gin-gonic/gin"
 )
 
 // Cashing thing..
 var SurahCash = make(map[string][]byte)
 
-func getSurah(c *gin.Context) {
-	idx := c.Param("id")
-
+func getSurah(w http.ResponseWriter, r *http.Request, idx string) {
 	id, err := strconv.Atoi(idx)
+
 	if err != nil || id < 1 || id > 144 {
-		c.Writer.Write([]byte("<h1>Page not found surah number is wrong</h1>"))
+		w.Write([]byte("<h1>Page not found surah number is wrong</h1>"))
 		return
 	}
 
 	if _, ok := SurahCash[idx]; ok {
-		c.Writer.Write(SurahCash[idx])
+		w.Write(SurahCash[idx])
 		return
 	}
 
 	surahArabic, err := os.Open("static/json/arabic/" + idx + ".json")
 	if err != nil {
-		c.Writer.Write([]byte("Page Not found"))
+		w.Write([]byte("Page Not found"))
 		fmt.Println(err)
 		return
 	}
@@ -39,7 +37,7 @@ func getSurah(c *gin.Context) {
 	surahInfo, err := os.Open("static/json/chapters/" + idx + ".json")
 
 	if err != nil {
-		c.Writer.Write([]byte("Page Not found"))
+		w.Write([]byte("Page Not found"))
 		fmt.Println(err)
 		return
 	}
@@ -50,7 +48,7 @@ func getSurah(c *gin.Context) {
 	for i, path := range tnaslaitonList {
 		translation, err := os.Open("static/json/" + path + idx + ".json")
 		if err != nil {
-			c.Writer.Write([]byte("Page Not found"))
+			w.Write([]byte("Page Not found"))
 			fmt.Println(err)
 			return
 		}
@@ -106,5 +104,5 @@ func getSurah(c *gin.Context) {
 	// Chashing
 	SurahCash[idx] = surahBuff.Bytes()
 
-	c.Writer.Write(surahBuff.Bytes())
+	w.Write(surahBuff.Bytes())
 }
