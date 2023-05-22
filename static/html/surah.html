@@ -13,6 +13,8 @@
   <!-- <div class="ayas"> {{ .SurahInfo.Chapter.VersesCount }} </div> -->
   <!-- <div id="translation-imfo"></div> -->
   <button id="theme-tgl">Theme</button>
+  <button id="fontPlus">Font +</button>
+  <button id="fontMinus">Font -</button>
 
   {{ if  .SurahInfo.Chapter.Bismillah }}
     <p id="bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
@@ -36,18 +38,43 @@
 </div>
 
 <script>
-  // just for dark and light
   const Classes = document.body.classList;
+  const themeTgl = document.getElementById("theme-tgl")
   Classes.add("dark");
-  document.getElementById("theme-tgl").addEventListener("click", () => {
+  themeTgl.addEventListener("click", () => {
     if (Classes.contains("dark")) {
       Classes.remove("dark");
       Classes.add("light");
+      themeTgl.innerText = "Go Dark"
     } else {
       Classes.add("dark");
       Classes.remove("light");
+      themeTgl.innerText = "Go Light"
     }
   })
+
+  const fontPlus = document.getElementById("fontPlus");
+  const fontMinus = document.getElementById("fontMinus");
+  const body = document.body;
+
+  function bodyFonstSize() {
+    const size = getComputedStyle(body).fontSize;
+    return parseFloat(size.substring(0, size.length - 2));
+  }
+
+
+  fontPlus.addEventListener("click", () => {
+    const size = `${bodyFonstSize() + 1}px`
+    body.style.fontSize = size
+    fontPlus.innerText = `Font ${size} +`
+  });
+
+
+  fontMinus.addEventListener("click", () => {
+    const size = `${bodyFonstSize() - 1}px`
+    body.style.fontSize = size
+    fontMinus.innerText = `Font ${size} -`
+  });
 </script>
 {{ template "footer" }}
 

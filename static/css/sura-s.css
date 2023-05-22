@@ -1,5 +1,9 @@
 {{ define "surah-css" }}
 
+body {
+    font-size: 1.4rem;
+}
+
 @font-face {
     font-family: arabic-c-font;
     src: url(static/fonts/arabic);
@@ -39,7 +43,7 @@
 
 .surah-body {
     font-family: english-font;
-    /* margin: 0.5rem 1rem; */
+    /* margin: 0.5em 1em; */
 }
 
 .surah-body h1 {
@@ -48,36 +52,35 @@
 
 .surah-body .imfo {
     text-transform: uppercase;
-    margin-left: 1rem;
+    margin-left: 1em;
     font-weight: 600;
 }
 
 .surah-body .verse-key {
-    font-size: 1.4rem;
-    font-weight: 600;
+    font-size: 1em;
 }
 
 .surah-body .aya {
     border-top: 1px solid rgb(85, 85, 85);
     border-bottom: 1px solid black;
     /* background-color: rgba(241, 241, 241, 0.452); */
-    padding: 0.5rem 1rem;
+    padding: 0.5em 1em;
 }
 
 .surah-body .aya-text {
     font-family: arabic-c-font;
     text-align: right;
-    font-size: 2.3rem;
-    margin-top: 0.5rem;
+    font-size: 2em;
+    margin-top: 0.5em;
 }
 
 .surah-body .en-trans {
-    font-size: 1.2rem;
+    font-size: 0.8em;
 }
 
 .surah-body .bn-trans {
     font-family: bangla-font, sans-serif;
-    font-size: 1.4rem;
+    font-size: 1em;
 }
 
 .surah-body .en-trans sup {
@@ -89,6 +92,14 @@
     .surah-body .aya {
         padding-left: 7rem;
         padding-right: 7rem;
+    }
+
+    .surah-body .en-trans {
+        font-size: 1em;
+    }
+
+    .surah-body .bn-trans {
+        font-size: 1.5em;
     }
 }
 
