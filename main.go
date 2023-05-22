@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -11,6 +12,7 @@ import (
 func main() {
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/static/", staticHandeler)
+	http.HandleFunc("/word/", wordHandler)
 
 	var err error
 	port := ":8080"
@@ -52,4 +54,24 @@ func printStat(r *http.Request, dur time.Time) {
 		r.Method,
 		r.URL.Path,
 	)
+}
+
+func wordHandler(w http.ResponseWriter, r *http.Request) {
+	t := time.Now()
+	id, err := surahNumCheck(string(r.URL.Path[len("/word/"):]))
+	if err != nil {
+		w.Write([]byte("<h1>page not found</h1>"))
+		return
+	}
+	lang := "bangla"
+	wordByWord(w, r, id, lang)
+	printStat(r, t)
+}
+
+func surahNumCheck(idx string) (string, error) {
+	id, err := strconv.Atoi(idx)
+	if err != nil || id < 1 || id > 144 {
+		return "", fmt.Errorf("index out of bound")
+	}
+	return idx, nil
 }

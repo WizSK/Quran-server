@@ -1,0 +1,38 @@
+<!DOCTYPE html lang="en">
+<html>
+<head>
+	<style>
+	{{ template "wordByWord" }}
+	</style>
+</head>
+<body>
+	{{ range . }}
+
+	{{ range .Verses }}
+		<div class="aya">
+
+		{{ range .Words }}
+		<span class="word">
+			<span class="arabic">
+			{{ .Text }}
+			</span>
+			<span class="trans">
+			{{ .Translation.Text }}
+			</span>
+		</span>
+		{{ end }}
+
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+	{{ end }}
+
+	{{ end }}
+</body>
+</html>
+

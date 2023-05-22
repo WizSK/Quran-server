@@ -1,0 +1,49 @@
+{{ define "wordByWord" }}
+@font-face {
+    font-family: arabic;
+    src: url(/static/fonts/arabic);
+}
+
+
+@font-face {
+    font-family: english-font;
+    src: url(static/fonts/english);
+}
+
+@font-face {
+    font-family: bangla-font;
+    src: url(/static/fonts/bangla);
+}
+
+
+body {
+    font-size: 1.8rem;
+}
+
+
+.aya {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+}
+
+.word {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0rem 1rem;
+    align-items: center;
+}
+
+.arabic {
+    font-family: arabic;
+}
+
+.trans {
+    font-family: bangla-font;
+    display: block;
+    font-size: 0.5em;
+    line-break: strict;
+}
+
+{{ end }}
