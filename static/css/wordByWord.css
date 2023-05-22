@@ -6,8 +6,8 @@
 
 
 @font-face {
-    font-family: english-font;
-    src: url(static/fonts/english);
+    font-family: englishFont;
+    src: url(/static/fonts/english);
 }
 
 @font-face {
@@ -17,11 +17,46 @@
 
 
 body {
-    font-size: 1.8rem;
+    font-size: 5rem;
+    margin: 1rem 1rem;
 }
 
+#hero {
+    font-family: englishFont;
+}
+
+#hero h1 {
+    margin-bottom: .5rem;
+}
+
+#place {
+    text-transform: capitalize;
+}
+
+#bismillah {
+    font-family: arabic;
+    text-align: center;
+    font-size: 1.6em;
+}
 
 .aya {
+    border-top: 1px solid rgb(85, 85, 85);
+    /* border-bottom: 1px solid black; */
+    padding-bottom: 1rem;
+}
+
+.aya:last-child{
+    border-bottom: 1px solid rgb(85, 85, 85);
+    margin-bottom: 2rem;
+
+}
+.verse_key {
+    font-size: 0.6em;
+    margin: 0 auto;
+    margin-top: 0.4rem;
+}
+
+.words {
     font-family: arabic;
     display: flex;
     flex-wrap: wrap;
@@ -32,18 +67,28 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0rem 1rem;
+    margin: 1rem 1rem;
     align-items: center;
 }
 
-/* .arabic { */
-/* } */
-/**/
+.arabic {
+    font-size: 1.3em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
 .trans {
     font-family: bangla-font;
     display: block;
-    font-size: 0.5em;
+    font-size: 0.8em;
     line-break: strict;
+}
+
+@media (min-width: 750px) {
+    body {
+        font-size: 2rem;
+        margin: 1rem 4rem;
+    }
 }
 
 {{ end }}

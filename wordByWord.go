@@ -10,6 +10,14 @@ import (
 	"text/template"
 )
 
+type CompleteSurahWordByWord struct {
+	// Aarabic           Ayas
+	// Translaions       []TranslatedVerses
+	// BanglaTranslation TranslatedVerses // local lang of mine.
+	SurahInfo       ChapterInfo
+	WordByWordArray []WordByWord
+}
+
 type WordByWord struct {
 	Verses []WordVerse
 }
@@ -71,6 +79,22 @@ func wordByWord(w http.ResponseWriter, r *http.Request, id, lang string) {
 		file.Close()
 	}
 
+	// chapter info
+	surahInfo, err := os.Open("static/json/chapters/" + id + ".json")
+
+	if err != nil {
+		w.Write([]byte("Page Not found"))
+		fmt.Println(err)
+		return
+	}
+	defer surahInfo.Close()
+
+	var combined CompleteSurahWordByWord 
+	if err = json.NewDecoder(surahInfo).Decode(&combined.SurahInfo); err != nil {
+		fmt.Println(err)
+		return
+	}
+
 	offset := V[0].Verses[0].Id - 1
 	for i := range V {
 		for j := range V[i].Verses {
@@ -79,14 +103,14 @@ func wordByWord(w http.ResponseWriter, r *http.Request, id, lang string) {
 
 	}
 
+	combined.WordByWordArray = V
 	st := new(bytes.Buffer)
-
 	h, _ := template.New("html").Parse(s)
-	_, err := h.ParseFiles("static/css/wordByWord.css")
+	_, err = h.ParseFiles("static/css/wordByWord.css")
 	if err != nil {
 		fmt.Println(err)
 	}
-	h.Execute(st, V)
+	h.Execute(st, combined)
 
 	w.Write(st.Bytes())
 }
@@ -99,11 +123,22 @@ const s string = `<!DOCTYPE html lang="en">
 	</style>
 </head>
 <body>
-	{{ range . }}
+	<section id="hero">
+	<h1>{{ .SurahInfo.Chapter.Name }}</h1>
+	<div id="place">{{ .SurahInfo.Chapter.Place }}</div>
+	{{ if .SurahInfo.Chapter.Bismillah }}
+	    <p id="bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
+	{{ end }}
+	</section>
+
+
+	{{ range .WordByWordArray }}
 
 	{{ range .Verses }}
 		<div class="aya" id="{{ .Id }}">
 
+		<div class="verse_key">{{ .VerseKey }}</div>
+		<div class="words">
 		{{ range .Words }}
 		<span class="word">
 			<span class="arabic">
@@ -114,6 +149,7 @@ const s string = `<!DOCTYPE html lang="en">
 			</span>
 		</span>
 		{{ end }}
+		</div>
 		</div>
 	{{ end }}
 

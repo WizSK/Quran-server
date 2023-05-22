@@ -11,7 +11,7 @@ import (
 )
 
 // Cashing thing..
-// var SurahCash = make(map[string][]byte)
+var SurahCash = make(map[string][]byte)
 
 func getSurah(w http.ResponseWriter, r *http.Request, idx string) {
 	id, err := strconv.Atoi(idx)
@@ -21,10 +21,10 @@ func getSurah(w http.ResponseWriter, r *http.Request, idx string) {
 		return
 	}
 
-	// if _, ok := SurahCash[idx]; ok {
-	// 	w.Write(SurahCash[idx])
-	// 	return
-	// }
+	if _, ok := SurahCash[idx]; ok {
+		w.Write(SurahCash[idx])
+		return
+	}
 
 	surahArabic, err := os.Open("static/json/arabic/" + idx + ".json")
 	if err != nil {
@@ -102,7 +102,7 @@ func getSurah(w http.ResponseWriter, r *http.Request, idx string) {
 	surahTemplate.Execute(surahBuff, all)
 
 	// Chashing
-	// SurahCash[idx] = surahBuff.Bytes()
+	SurahCash[idx] = surahBuff.Bytes()
 
 	w.Write(surahBuff.Bytes())
 }
