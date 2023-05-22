@@ -71,6 +71,14 @@ func wordByWord(w http.ResponseWriter, r *http.Request, id, lang string) {
 		file.Close()
 	}
 
+	offset := V[0].Verses[0].Id - 1
+	for i := range V {
+		for j := range V[i].Verses {
+			V[i].Verses[j].Id -= offset
+		}
+
+	}
+
 	st := new(bytes.Buffer)
 
 	h, _ := template.New("html").Parse(s)
@@ -94,7 +102,7 @@ const s string = `<!DOCTYPE html lang="en">
 	{{ range . }}
 
 	{{ range .Verses }}
-		<div class="aya">
+		<div class="aya" id="{{ .Id }}">
 
 		{{ range .Words }}
 		<span class="word">
@@ -106,15 +114,7 @@ const s string = `<!DOCTYPE html lang="en">
 			</span>
 		</span>
 		{{ end }}
-
 		</div>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
 	{{ end }}
 
 	{{ end }}

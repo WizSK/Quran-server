@@ -11,7 +11,8 @@ type CompleteSurah struct {
 // Verse arabic schema
 type Verse struct {
 	Id   int
-	Text string `json:"text_uthmani"`
+	Text string `json:"text_imlaei"`
+	// Text string `json:"text_uthmani","text_imlaei"`
 	Key  string `json:"verse_key"`
 }
 

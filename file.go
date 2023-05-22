@@ -33,7 +33,7 @@ func staticHandeler(w http.ResponseWriter, r *http.Request) {
 
 		switch v[2] {
 		case "arabic":
-			http.ServeFile(w, r, "static/assets/uthman_tn09.otf")
+			http.ServeFile(w, r, "static/assets/UthmanicHafs1Ver18.woff2")
 			printStat(r, dur)
 			return
 

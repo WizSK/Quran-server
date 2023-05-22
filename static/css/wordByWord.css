@@ -22,6 +22,7 @@ body {
 
 
 .aya {
+    font-family: arabic;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row-reverse;
@@ -35,10 +36,9 @@ body {
     align-items: center;
 }
 
-.arabic {
-    font-family: arabic;
-}
-
+/* .arabic { */
+/* } */
+/**/
 .trans {
     font-family: bangla-font;
     display: block;

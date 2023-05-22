@@ -9,6 +9,11 @@ body {
     src: url(static/fonts/arabic);
 }
 
+@font-face {
+    font-family: arabic-symbol;
+    /* src: url(static/fonts/arabic_symbol); */
+    src: url(static/fonts/arafsic_symbol);
+}
 
 @font-face {
     font-family: english-font;
@@ -36,7 +41,7 @@ body {
 }
 
 #bismillah {
-    font-family: arabic-c-font;
+    font-family: arabic-c-font, arabic-syblom;
     text-align: center;
     font-size: 2rem;
 }
@@ -68,6 +73,7 @@ body {
 }
 
 .surah-body .aya-text {
+    /* font-family: arabic-c-font, arabic-symbol; */
     font-family: arabic-c-font;
     text-align: right;
     font-size: 2em;
