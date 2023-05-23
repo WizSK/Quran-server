@@ -11,6 +11,10 @@ import (
 )
 
 type CompleteSurahWordByWord struct {
+
+	Aarabic    Ayas
+	Translaions []TranslatedVerses
+	BanglaTranslation TranslatedVerses // local lang of mine.
 	// Aarabic           Ayas
 	// Translaions       []TranslatedVerses
 	// BanglaTranslation TranslatedVerses // local lang of mine.

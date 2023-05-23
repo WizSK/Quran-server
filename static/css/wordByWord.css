@@ -17,8 +17,8 @@
 
 
 body {
-    font-size: 5rem;
-    margin: 1rem 1rem;
+    font-size: 2rem;
+    margin: 1rem 7rem;
 }
 
 #hero {
@@ -51,9 +51,11 @@ body {
 
 }
 .verse_key {
+    font-family: englishFont;
     font-size: 0.6em;
     margin: 0 auto;
     margin-top: 0.4rem;
+    margin-left: 1rem;
 }
 
 .words {
@@ -72,7 +74,7 @@ body {
 }
 
 .arabic {
-    font-size: 1.3em;
+    font-size: 1em;
     margin-left: 0.5em;
     margin-right: 0.5em;
 }
@@ -84,10 +86,12 @@ body {
     line-break: strict;
 }
 
-@media (min-width: 750px) {
+@media (max-width: 1000px) {
+    /* Styles for phones */
+    /* Add your CSS styles here */
     body {
-        font-size: 2rem;
-        margin: 1rem 4rem;
+        font-size: 3.4rem;
+        margin: 1rem 2rem;
     }
 }
 
