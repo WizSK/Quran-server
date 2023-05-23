@@ -46,7 +46,7 @@ body {
 #bismillah {
     font-family: arabic;
     text-align: center;
-    font-size: 1.6em;
+    font-size: 1.4em;
 }
 
 .aya {
@@ -105,15 +105,15 @@ body {
 }
 
 .arabic {
-    font-size: 1em;
-    margin-left: 0.5em;
-    margin-right: 0.5em;
+    font-size: 1.4em;
+    margin-left: 0.3em;
+    margin-right: 0.3em;
 }
 
 .trans {
     font-family: bangla-font;
     display: block;
-    font-size: 0.8em;
+    font-size: 0.9em;
     line-break: strict;
 }
 
@@ -131,20 +131,37 @@ body {
     background-color: white;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 756px) {
     /* Styles for phones */
     /* Add your CSS styles here */
     body {
-        font-size: 3.8rem;
-        margin: 1rem 2rem;
+        font-size: 2rem;
+        margin: 1rem 1rem;
     }
 
     #theme-tgl,#fontPlus,#fontMinus {
-        font-size: 0.7em;
+        font-size: 0.5em;
     }
 
     .verse_key {
-        font-size: 0.8em;
+        font-size: 0.6em;
+    }
+
+    .arabic {
+        margin-left: 0.1em;
+        margin-right: 0.1em;
+    }
+
+    #hero h1 {
+        font-size: 1em;
+    }
+
+    #place {
+        font-size: 0.6em;
+    }
+
+    #bismillah {
+        font-size: 1em;
     }
 }
 

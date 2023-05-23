@@ -7,7 +7,7 @@ import (
 	"text/template"
 )
 
-const WordCache bool = true
+const WordCache bool = false
 
 var WordByWordCache = func() map[string][]byte {
 	if WordCache {
@@ -18,7 +18,7 @@ var WordByWordCache = func() map[string][]byte {
 }()
 
 func wordByWord(w http.ResponseWriter, r *http.Request, index, lang string) string {
-	if WordByWordCache != nil {
+	if WordCache {
 		if val, ok := WordByWordCache[index]; ok {
 			w.Write(val)
 			return "cache"
@@ -52,7 +52,9 @@ func wordByWord(w http.ResponseWriter, r *http.Request, index, lang string) stri
 		fmt.Println(err)
 		return "err"
 	}
-	WordByWordCache[index] = st.Bytes()
+	if WordCache {
+		WordByWordCache[index] = st.Bytes()
+	}
 	w.Write(st.Bytes())
 	return "comp"
 }

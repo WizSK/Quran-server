@@ -18,10 +18,12 @@ func printStat(r *http.Request, dur time.Time, method string) {
 	if method == "comp" {
 		// yellow
 		methodBg = "\033[43m"
-	}
-	if method == "err" {
+	} else if method == "err" {
 		// red
 		methodBg = "\033[41m"
+	} else if method == "file" {
+		// cyan
+		methodBg = "\033[46m"
 	}
 
 	fmt.Printf("[stat] %s | %13s |%s%s %5s %s| %15s | %s | \"%s\"\n",
