@@ -21,6 +21,7 @@ func staticHandeler(w http.ResponseWriter, r *http.Request) {
 	if len(v) < 2 {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte("no file"))
+		printStat(r, dur, "err")
 		return
 	}
 
@@ -28,28 +29,29 @@ func staticHandeler(w http.ResponseWriter, r *http.Request) {
 		if len(v) < 3 || len(v) > 3 {
 			w.WriteHeader(http.StatusNotFound)
 			w.Write([]byte("no file"))
+			printStat(r, dur, "err")
 			return
 		}
 
 		switch v[2] {
 		case "arabic":
 			http.ServeFile(w, r, "static/assets/UthmanicHafs1Ver18.woff2")
-			printStat(r, dur)
+			printStat(r, dur, "file")
 			return
 
 		case "english":
 			http.ServeFile(w, r, "static/assets/Lato-Regular.ttf")
-			printStat(r, dur)
+			printStat(r, dur, "file")
 			return
 
 		case "bangla":
 			http.ServeFile(w, r, "static/assets/SolaimanLipi.ttf")
-			printStat(r, dur)
+			printStat(r, dur, "file")
 			return
 
 		default:
 			w.Write([]byte("no file found"))
-			printStat(r, dur)
+			printStat(r, dur, "err")
 			return
 		}
 
@@ -64,17 +66,17 @@ func staticHandeler(w http.ResponseWriter, r *http.Request) {
 		switch v[2] {
 		case "favicon":
 			http.ServeFile(w, r, "static/assets/quran-faviocn.png")
-			printStat(r, dur)
+			printStat(r, dur, "file")
 			return
 
 		case "quran.png":
 			http.ServeFile(w, r, "static/assets/quran.png")
-			printStat(r, dur)
+			printStat(r, dur, "file")
 			return
 
 		default:
 			w.Write([]byte("no file found"))
-			printStat(r, dur)
+			printStat(r, dur, "err")
 			return
 		}
 

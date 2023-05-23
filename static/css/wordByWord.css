@@ -1,4 +1,4 @@
-{{ define "wordByWord" }}
+{{ define "wordByWord-style" }}
 @font-face {
     font-family: arabic;
     src: url(/static/fonts/arabic);
@@ -15,10 +15,12 @@
     src: url(/static/fonts/bangla);
 }
 
+
 .dark {
     background: #231c1c;
     color: #ffffff;
 }
+
 .light {
     background: #ffffff;
     color: #231c1c;
@@ -48,23 +50,44 @@ body {
 }
 
 .aya {
-    border-top: 1px solid rgb(85, 85, 85);
-    /* border-bottom: 1px solid black; */
+    /* border-top: 1px solid rgb(85, 85, 85); */
     padding-bottom: 1rem;
 }
 
-.aya:last-child{
-    border-bottom: 1px solid rgb(85, 85, 85);
-    margin-bottom: 2rem;
 
-}
+/* .light .aya { */
+/*     border-bottom: 1px solid black; */
+/* } */
+
+/* .light .aya:first-of-type { */
+/*     border-top: 1px solid black; */
+/* } */
+
+/* .dark .aya { */
+/*     border-bottom: 1px solid white; */
+/* } */
+
+/* .dark .aya:first-of-type { */
+/*     margin-top: 0.5rem; */
+/*     border-top: 1px solid white; */
+/* } */
+
+
+/* .aya:last-of-type { */
+/*     border-bottom: 1px solid rgb(85, 85, 85); */
+/*     margin-bottom: 2rem; */
+/**/
+/* } */
 .verse_key {
     font-family: englishFont;
     font-size: 0.6em;
     margin: 0 auto;
     margin-top: 0.4rem;
     margin-left: 1rem;
+    opacity: 0.7;
 }
+
+
 
 .words {
     font-family: arabic;
@@ -94,14 +117,35 @@ body {
     line-break: strict;
 }
 
+.border {
+    margin-top: 2px;
+    padding: 1px;
+    opacity: 0.7;
+}
+
+.light .border {
+    background-color: black;
+}
+
+.dark .border {
+    background-color: white;
+}
+
 @media (max-width: 1000px) {
     /* Styles for phones */
     /* Add your CSS styles here */
     body {
-        font-size: 3.4rem;
+        font-size: 3.8rem;
         margin: 1rem 2rem;
     }
 
+    #theme-tgl,#fontPlus,#fontMinus {
+        font-size: 0.7em;
+    }
+
+    .verse_key {
+        font-size: 0.8em;
+    }
 }
 
 {{ end }}

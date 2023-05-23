@@ -12,18 +12,18 @@ import (
 var IndexCash []byte
 var WordByWordIndexCash []byte
 
-func getIndex(w http.ResponseWriter, r *http.Request, prefix string) {
+func getIndex(w http.ResponseWriter, r *http.Request, prefix string)string {
 	// Cashed
 	switch prefix {
 	case "/":
 		if len(IndexCash) > 0 {
 			w.Write(IndexCash)
-			return
+			return "cache"
 		}
 	case "/w/":
 		if len(WordByWordIndexCash) > 0 {
 			w.Write(WordByWordIndexCash)
-			return
+			return "cache"
 		}
 
 	}
@@ -32,10 +32,9 @@ func getIndex(w http.ResponseWriter, r *http.Request, prefix string) {
 	suras := new(bytes.Buffer)
 	// resp, err := http.Get(url)
 	resp, err := os.Open("static/json/chapters.json")
-
 	if err != nil {
-		//
-		return
+		fmt.Println(err)
+		return "err"
 	}
 
 	// if resp.StatusCode != http.StatusOK {
@@ -46,7 +45,8 @@ func getIndex(w http.ResponseWriter, r *http.Request, prefix string) {
 
 	var surahJson ChaptersIdx
 	if err = json.NewDecoder(resp).Decode(&surahJson); err != nil {
-		return
+		fmt.Println(err)
+		return "err"
 	}
 
 	var prefixedSurah SurahIndexPrefixed
@@ -62,6 +62,7 @@ func getIndex(w http.ResponseWriter, r *http.Request, prefix string) {
 	p, err := template.ParseFiles("static/html/index.html", "static/css/index.css", "static/html/common.html")
 	if err != nil {
 		fmt.Println(err)
+		return "err"
 	}
 
 	p.Execute(suras, prefixedSurah)
@@ -74,4 +75,5 @@ func getIndex(w http.ResponseWriter, r *http.Request, prefix string) {
 	}
 	// IndexCash = suras.Bytes()
 	w.Write(suras.Bytes())
+		return "comp"
 }

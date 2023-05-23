@@ -10,18 +10,18 @@ import (
 // Cashing thing..
 var SurahCash = make(map[string][]byte)
 
-func getSurah(w http.ResponseWriter, r *http.Request, idx string) {
+func getSurah(w http.ResponseWriter, r *http.Request, idx string) string {
 
 	idx, err := surahNumCheck(idx)
 	if err != nil {
 		fmt.Println(err)
 		w.Write([]byte("<h1>Page not found surah number is wrong</h1>"))
-		return
+		return "err"
 	}
 
 	if _, ok := SurahCash[idx]; ok {
 		w.Write(SurahCash[idx])
-		return
+		return "cache"
 	}
 
 	var combined CompleteSurah
@@ -29,25 +29,25 @@ func getSurah(w http.ResponseWriter, r *http.Request, idx string) {
 	if combined.SurahInfo, err = GetSurahInfo(idx); err != nil {
 		fmt.Println(err)
 		w.Write([]byte("<h1>Page not found surah number is wrong</h1>"))
-		return
+		return "err"
 	}
 
 	if combined.Aarabic, err = GetArabicAyas(idx); err != nil {
 		fmt.Println(err)
 		w.Write([]byte("<h1>Page not found surah number is wrong</h1>"))
-		return
+		return "err"
 	}
 
 	if combined.Translaions, err = GetTransLations(idx); err != nil {
 		fmt.Println(err)
 		w.Write([]byte("<h1>page not found surah number is wrong</h1>"))
-		return
+		return "err"
 	}
 
 	if combined.BanglaTranslation, err = GetBanglaTranslation(idx); err != nil {
 		fmt.Println(err)
 		w.Write([]byte("<h1>page not found surah number is wrong</h1>"))
-		return
+		return "err"
 	}
 
 	surahTemplate, err := template.ParseFiles("static/html/surah.html",
@@ -58,7 +58,7 @@ func getSurah(w http.ResponseWriter, r *http.Request, idx string) {
 
 	if err != nil {
 		fmt.Println(err)
-		return
+		return "err"
 	}
 
 	surahBuff := new(bytes.Buffer)
@@ -68,4 +68,5 @@ func getSurah(w http.ResponseWriter, r *http.Request, idx string) {
 	SurahCash[idx] = surahBuff.Bytes()
 
 	w.Write(surahBuff.Bytes())
+	return "comp"
 }

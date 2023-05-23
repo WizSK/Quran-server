@@ -1,38 +1,51 @@
-<!DOCTYPE html lang="en">
-<html>
-<head>
-	<style>
-	{{ template "wordByWord" }}
-	</style>
-</head>
-<body>
-	{{ range . }}
+{{ template "header" }}
 
-	{{ range .Verses }}
-		<div class="aya">
+<style>
+{{ template "wordByWord-style" }}
+</style>
 
-		{{ range .Words }}
-		<span class="word">
-			<span class="arabic">
-			{{ .Text }}
-			</span>
-			<span class="trans">
-			{{ .Translation.Text }}
-			</span>
+{{ template "midHeader" .SurahInfo.Chapter.Name }}
+
+<section id="hero">
+<h1>{{ .SurahInfo.Chapter.Name }}</h1>
+<div id="place">{{ .SurahInfo.Chapter.Place }}</div>
+{{ if .SurahInfo.Chapter.Bismillah }}
+    <p id="bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
+{{ end }}
+  <button id="theme-tgl">Theme</button>
+  <button id="fontPlus">Font +</button>
+  <button id="fontMinus">Font -</button>
+</section>
+
+<!-- range 1 -->
+{{ range .WordByWordArray }}
+<!-- range 2 -->
+{{ range .Verses }}
+	<div class="border"></div>
+	<div class="aya" id="{{ .Id }}">
+	<div class="verse_key">{{ .VerseKey }}</div>
+	<div class="words">
+	{{ range .Words }}
+	<span class="word">
+		<span class="arabic">
+		{{ .Text }}
 		</span>
-		{{ end }}
-
-		</div>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
+		<span class="trans">
+		{{ .Translation.Text }}
+		</span>
+	</span>
 	{{ end }}
+	</div>
+	</div>
+{{ end }}
+<!-- range 2 end -->
+<div class="border"></div>
+{{ end }}
+<!-- range 1 end -->
 
-	{{ end }}
-</body>
-</html>
+	<script>
+	{{ template "theme-js" }}
+	{{ template "font-size-js" }}
+	</script>
 
+{{ template "footer" }}
