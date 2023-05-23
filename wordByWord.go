@@ -7,7 +7,7 @@ import (
 	"text/template"
 )
 
-const WordCache bool = false
+const WordCache bool = true
 
 var WordByWordCache = func() map[string][]byte {
 	if WordCache {
