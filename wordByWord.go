@@ -23,13 +23,18 @@ func wordByWord(w http.ResponseWriter, r *http.Request, index, lang string) {
 	}
 
 	st := new(bytes.Buffer)
-	h, _ := template.New("html").Parse(s)
-	_, err = h.ParseFiles("static/css/wordByWord.css")
+	h, err := template.New("html").Parse(s)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
-	h.Execute(st, combined)
+	_, err = h.ParseFiles("static/js/common.js", "static/css/wordByWord.css")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
+	h.Execute(st, combined)
 	w.Write(st.Bytes())
 }
 
@@ -47,6 +52,9 @@ const s string = `<!DOCTYPE html lang="en">
 {{ if .SurahInfo.Chapter.Bismillah }}
     <p id="bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
 {{ end }}
+  <button id="theme-tgl">Theme</button>
+  <button id="fontPlus">Font +</button>
+  <button id="fontMinus">Font -</button>
 </section>
 
 
@@ -72,6 +80,10 @@ const s string = `<!DOCTYPE html lang="en">
 {{ end }}
 
 {{ end }}
+	<script>
+	{{ template "theme-js" }}
+	{{ template "font-size-js" }}
+	</script>
 </body>
 </html>
 `

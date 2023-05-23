@@ -15,6 +15,14 @@
     src: url(/static/fonts/bangla);
 }
 
+.dark {
+    background: #231c1c;
+    color: #ffffff;
+}
+.light {
+    background: #ffffff;
+    color: #231c1c;
+}
 
 body {
     font-size: 2rem;

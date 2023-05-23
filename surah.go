@@ -50,7 +50,12 @@ func getSurah(w http.ResponseWriter, r *http.Request, idx string) {
 		return
 	}
 
-	surahTemplate, err := template.ParseFiles("static/html/surah.html", "static/css/sura-s.css", "static/html/common.html")
+	surahTemplate, err := template.ParseFiles("static/html/surah.html",
+		"static/css/sura-s.css",
+		"static/html/common.html",
+		"static/js/common.js",
+	)
+
 	if err != nil {
 		fmt.Println(err)
 		return
