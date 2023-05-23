@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
+	"strconv"
 )
 
 // translations file structure
@@ -94,4 +96,55 @@ func GetTransLations(index string) ([]TranslatedVerses, error) {
 	}
 
 	return translations, nil
+}
+
+func GetWordByWord(index, lang string) ([]WordByWord, error) {
+	var words []WordByWord
+	path := "static/json/word_by_word/" + lang + "/" + index + "/"
+	pages, err := GetPageNumbers(path)
+	if err != nil {
+		return nil, err
+	}
+
+	for i := 1; i <= pages; i++ {
+		f := fmt.Sprintf("%s%d.json", path, i)
+		file, err := os.Open(f)
+		if err != nil {
+			return nil, err
+		}
+
+		var word WordByWord
+		if err = json.NewDecoder(file).Decode(&word); err != nil {
+			return nil, err
+		}
+		words = append(words, word)
+		file.Close()
+	}
+
+	offset := words[0].Verses[0].Id - 1
+	for i := range words {
+		for j := range words[i].Verses {
+			words[i].Verses[j].Id -= offset
+		}
+
+	}
+
+	return words, nil
+}
+
+// used fot he word by word cause it's borken into many pages..
+func GetPageNumbers(path string) (int, error) {
+	f, err := os.ReadFile(path + "page_count.txt")
+	if err != nil {
+		return -1, err
+	}
+	id := string(f)
+	if id[len(id)-1] == '\n' {
+		id = id[:len(id)-1]
+	}
+	pages, err := strconv.Atoi(string(id))
+	if err != nil {
+		return -1, err
+	}
+	return pages, nil
 }

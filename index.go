@@ -1,5 +1,5 @@
 package main
- 
+
 import (
 	"bytes"
 	"encoding/json"
@@ -10,12 +10,22 @@ import (
 )
 
 var IndexCash []byte
+var WordByWordIndexCash []byte
 
-func getIndex(w http.ResponseWriter, r *http.Request) {
+func getIndex(w http.ResponseWriter, r *http.Request, prefix string) {
 	// Cashed
-	if len(IndexCash) > 0 {
-		w.Write(IndexCash)
-		return
+	switch prefix {
+	case "/":
+		if len(IndexCash) > 0 {
+			w.Write(IndexCash)
+			return
+		}
+	case "/w/":
+		if len(WordByWordIndexCash) > 0 {
+			w.Write(WordByWordIndexCash)
+			return
+		}
+
 	}
 
 	// const surahUrl string = "https://api.quran.com/api/v4/chapters"
@@ -39,13 +49,29 @@ func getIndex(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var prefixedSurah SurahIndexPrefixed
+	for _, v := range surahJson.Chapters {
+		p := fmt.Sprintf("%s%d", prefix, v.Id)
+		prefixedSurah.Prefixes = append(prefixedSurah.Prefixes, p)
+	}
+	prefixedSurah.ChaptersIdx = surahJson
+
+	// prefixedSurah.ChaptersIdx.Chapters[0].Id
+	// prefixedSurah.Prefixes[0]
+
 	p, err := template.ParseFiles("static/html/index.html", "static/css/index.css", "static/html/common.html")
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	p.Execute(suras, surahJson)
+	p.Execute(suras, prefixedSurah)
 
-	IndexCash = suras.Bytes()
+	switch prefix {
+	case "/":
+		IndexCash = suras.Bytes()
+	case "/w/":
+		WordByWordIndexCash = suras.Bytes()
+	}
+	// IndexCash = suras.Bytes()
 	w.Write(suras.Bytes())
 }

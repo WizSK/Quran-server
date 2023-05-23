@@ -9,13 +9,13 @@
 
 @font-face {
     font-family: arabic-c-font;
-    src: url(static/fonts/arabic);
+    src: url(/static/fonts/arabic);
 }
 
 
 @font-face {
     font-family: english-font;
-    src: url(static/fonts/english);
+    src: url(/static/fonts/english);
 }
 
 body {

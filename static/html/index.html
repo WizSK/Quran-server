@@ -7,15 +7,18 @@
 <h1 class="alquran-headline">
   <span>The Quran </span><img src="/static/images/quran.png" alt="Quean pic">
 </h1>
+	<!--  prefixedSurah.ChaptersIdx.Chapters[0].Id -->
+	<!--  prefixedSurah.Chapters.Chapters[0].Id -->
+	<!--  prefixedSurah.Prefixes[0] -->
 
 <div id="root">
-{{ range .Chapters }}
-<a class="surah-link" href="/{{.Id}}">
+{{ range $i, $val := .ChaptersIdx.Chapters }}
+<a class="surah-link" href="{{ (index $.Prefixes $i) }}">
 <div class="surah">
   <p>
-    <span class="surah-no">{{.Id}}</span>
-    <span>{{.Name}}</span>
-    <span class="arabic-surah-name-li">{{.AraName}}</span>
+    <span class="surah-no">{{ $val.Id }}</span>
+    <span>{{ $val.Name }}</span>
+    <span class="arabic-surah-name-li">{{ $val.AraName }}</span>
   </p>
 </div>
 </a>
