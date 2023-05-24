@@ -1,0 +1,59 @@
+{{ template "header" }}
+
+<style>
+{{ template "wordByWord-style" }}
+</style>
+
+{{ template "midHeader" .SurahInfo.Chapter.Name }}
+
+<section id="hero">
+<h1>{{ .SurahInfo.Chapter.Name }}</h1>
+<div id="place">{{ .SurahInfo.Chapter.Place }}</div>
+{{ if .SurahInfo.Chapter.Bismillah }}
+    <p id="bismillah">بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</p>
+{{ end }}
+  <button id="theme-tgl">Theme</button>
+  <button id="fontPlus">Font +</button>
+  <button id="fontMinus">Font -</button>
+</section>
+
+<!-- range 1 -->
+{{ range .WordByWordArray }}
+<!-- range 2 -->
+{{ range $i, $ver := .Verses }}
+	<div class="border"></div>
+	<div class="aya" id="{{ $ver.Id }}">
+	<div class="verse_key">{{ $ver.VerseKey }}</div>
+	<div class="words">
+	{{ range $ver.Words }}
+	<span class="word">
+		<span class="arabic">
+		{{ .Text }}
+		</span>
+		<span class="trans">
+		{{ .Translation.Text }}
+		</span>
+	</span>
+	{{ end }}
+	</div>
+	</div>
+	<!-- translations: array eng -->
+	{{ $i = $i }}
+	<div> {{ (index $.BanglaTranslation.Translations $i).Text }} </div>
+	{{ range $.Translaions }}
+	<div> {{ (index .Translations $i).Text }} </div>
+	{{ end }}
+	<!-- translations: array end -->
+	
+{{ end }}
+<!-- range 2 end -->
+<div class="border"></div>
+{{ end }}
+<!-- range 1 end -->
+
+	<script>
+	{{ template "theme-js" }}
+	{{ template "font-size-js" }}
+	</script>
+
+{{ template "footer" }}

@@ -9,23 +9,20 @@ import (
 	"text/template"
 )
 
-var IndexCash []byte
-var WordByWordIndexCash []byte
+var IndexCache = stringByteMap()
 
-func getIndex(w http.ResponseWriter, r *http.Request, prefix string)string {
+func stringByteMap() map[string][]byte {
+	if Cache {
+		return make(map[string][]byte)
+	}
+	return nil
+}
+
+func getIndex(w http.ResponseWriter, r *http.Request, prefix string) string {
 	// Cashed
-	switch prefix {
-	case "/":
-		if len(IndexCash) > 0 {
-			w.Write(IndexCash)
-			return "cache"
-		}
-	case "/w/":
-		if len(WordByWordIndexCash) > 0 {
-			w.Write(WordByWordIndexCash)
-			return "cache"
-		}
-
+	if val, ok := IndexCache[prefix]; ok {
+		w.Write(val)
+		return "cache"
 	}
 
 	// const surahUrl string = "https://api.quran.com/api/v4/chapters"
@@ -67,13 +64,10 @@ func getIndex(w http.ResponseWriter, r *http.Request, prefix string)string {
 
 	p.Execute(suras, prefixedSurah)
 
-	switch prefix {
-	case "/":
-		IndexCash = suras.Bytes()
-	case "/w/":
-		WordByWordIndexCash = suras.Bytes()
+	if IndexCache != nil {
+		IndexCache[prefix] = suras.Bytes()
 	}
 	// IndexCash = suras.Bytes()
 	w.Write(suras.Bytes())
-		return "comp"
+	return "comp"
 }

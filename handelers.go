@@ -39,6 +39,25 @@ func wordHandler(w http.ResponseWriter, r *http.Request) {
 	printStat(r, t, m)
 }
 
+func wordTHandler(w http.ResponseWriter, r *http.Request) {
+	t := time.Now()
+	// id, err := surahNumCheck(string(r.URL.Path[len("/word/"):]))
+	id, err := surahNumCheck(r.URL.Path[len("/t/"):])
+	if id == "" {
+		m := getIndex(w, r, "/t/")
+		printStat(r, t, m)
+		return
+	}
+	if err != nil {
+		w.Write([]byte("<h1>page not found</h1>"))
+		return
+	}
+	lang := "bangla"
+	m := wordByWordTranslation(w, r, id, lang)
+	printStat(r, t, m)
+}
+
+
 func reDirectToWord(w http.ResponseWriter, r *http.Request) {
 	t := time.Now()
 	path := "/w/" + r.URL.Path[len("/word/"):]

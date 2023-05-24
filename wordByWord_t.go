@@ -7,10 +7,11 @@ import (
 	"text/template"
 )
 
-var WordByWordCache = stringByteMap()
+var WordTranByWordCache = stringByteMap()
 
-func wordByWord(w http.ResponseWriter, r *http.Request, index, lang string) string {
-	if val, ok := WordByWordCache[index]; ok {
+func wordByWordTranslation(w http.ResponseWriter, r *http.Request, index, lang string) string {
+	// Cache
+	if val, ok := WordTranByWordCache[index]; ok {
 		w.Write(val)
 		return "cache"
 	}
@@ -27,7 +28,17 @@ func wordByWord(w http.ResponseWriter, r *http.Request, index, lang string) stri
 		return "err"
 	}
 
-	wordHmtl, err := template.ParseFiles("static/html/word.html",
+	if combined.BanglaTranslation, err = GetBanglaTranslation(index); err != nil {
+		w.Write([]byte("<h1>Page not found surah number is wrong</h1>"))
+		return "err"
+	}
+
+	if combined.Translaions, err = GetTransLations(index); err != nil {
+		w.Write([]byte("<h1>Page not found surah number is wrong</h1>"))
+		return "err"
+	}
+
+	wordHmtl, err := template.ParseFiles("static/html/word_trans.html",
 		"static/html/common.html",
 		"static/js/common.js",
 		"static/css/wordByWord.css",
@@ -37,14 +48,16 @@ func wordByWord(w http.ResponseWriter, r *http.Request, index, lang string) stri
 		return "err"
 	}
 
+	_ = combined.BanglaTranslation.Translations[0].Text
 	st := new(bytes.Buffer)
 	if err = wordHmtl.Execute(st, combined); err != nil {
 		fmt.Println(err)
 		return "err"
 	}
 
+	// Cache
 	if Cache {
-		WordByWordCache[index] = st.Bytes()
+		WordTranByWordCache[index] = st.Bytes()
 	}
 	w.Write(st.Bytes())
 	return "comp"

@@ -8,7 +8,7 @@ import (
 )
 
 // Cashing thing..
-var SurahCash = make(map[string][]byte)
+var SurahCash = stringByteMap()
 
 func getSurah(w http.ResponseWriter, r *http.Request, idx string) string {
 
@@ -19,8 +19,8 @@ func getSurah(w http.ResponseWriter, r *http.Request, idx string) string {
 		return "err"
 	}
 
-	if _, ok := SurahCash[idx]; ok {
-		w.Write(SurahCash[idx])
+	if val, ok := SurahCash[idx]; ok {
+		w.Write(val)
 		return "cache"
 	}
 
@@ -65,7 +65,9 @@ func getSurah(w http.ResponseWriter, r *http.Request, idx string) string {
 	surahTemplate.Execute(surahBuff, combined)
 
 	// Chashing
-	SurahCash[idx] = surahBuff.Bytes()
+	if Cache {
+		SurahCash[idx] = surahBuff.Bytes()
+	}
 
 	w.Write(surahBuff.Bytes())
 	return "comp"
