@@ -1,4 +1,5 @@
 {{ define "wordByWord-style" }}
+
 @font-face {
     font-family: arabic;
     src: url(/static/fonts/arabic);
@@ -131,6 +132,24 @@ body {
     background-color: white;
 }
 
+
+.translations {
+    margin: 1rem 1rem;
+}
+
+.bn-trans {
+    font-size: 0.9em;
+    margin-bottom: 0.6rem;
+    font-family: bangla-font;
+}
+
+.eng-trans {
+    font-size: 0.8em;
+    font-family: englishFont;
+}
+.eng-trans sup {
+    display: none;
+}
 @media (max-width: 756px) {
     /* Styles for phones */
     /* Add your CSS styles here */

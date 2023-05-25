@@ -57,7 +57,6 @@ func wordTHandler(w http.ResponseWriter, r *http.Request) {
 	printStat(r, t, m)
 }
 
-
 func reDirectToWord(w http.ResponseWriter, r *http.Request) {
 	t := time.Now()
 	path := "/w/" + r.URL.Path[len("/word/"):]

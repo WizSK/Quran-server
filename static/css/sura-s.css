@@ -10,12 +10,6 @@ body {
 }
 
 @font-face {
-    font-family: arabic-symbol;
-    /* src: url(static/fonts/arabic_symbol); */
-    src: url(static/fonts/arafsic_symbol);
-}
-
-@font-face {
     font-family: english-font;
     src: url(static/fonts/english);
 }
@@ -93,6 +87,17 @@ body {
     display:none
 }
 
+.bn-trans,.en-trans {
+    font-size: 1em;
+}
+
+.bn-trans {
+    font-family: bangla-font;
+}
+
+.en-trans {
+    font-family: english-font;
+}
 
 @media (min-width: 768px) {
     .surah-body .aya {

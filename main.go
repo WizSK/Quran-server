@@ -7,7 +7,7 @@ import (
 )
 
 // var Cache bool = QuranCacheEnv()
-var Cache bool = true
+var Cache bool = false
 
 func main() {
 	http.HandleFunc("/", rootHandler)

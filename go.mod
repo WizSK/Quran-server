@@ -1,3 +1,3 @@
-module github.com/WizSK/Quran-server
+module gihub.com/wizsk/quran-server
 
 go 1.20

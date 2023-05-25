@@ -38,11 +38,12 @@
 	</div>
 	</div>
 	<!-- translations: array eng -->
-	{{ $i = $i }}
-	<div> {{ (index $.BanglaTranslation.Translations $i).Text }} </div>
+	<div class="translations">
+	<div class="bn-trans"> {{ (index $.BanglaTranslation.Translations $ver.IndexForTrans).Text }} </div>
 	{{ range $.Translaions }}
-	<div> {{ (index .Translations $i).Text }} </div>
+	<div class="eng-trans"> {{ (index .Translations $ver.IndexForTrans).Text }} </div>
 	{{ end }}
+	</div>
 	<!-- translations: array end -->
 	
 {{ end }}

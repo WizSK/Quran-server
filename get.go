@@ -129,6 +129,13 @@ func GetWordByWord(index, lang string) ([]WordByWord, error) {
 
 	}
 
+	for i := range words {
+		for j := range words[i].Verses {
+			words[i].Verses[j].IndexForTrans = words[i].Verses[j].Id - 1
+		}
+
+	}
+
 	return words, nil
 }
 

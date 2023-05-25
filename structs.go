@@ -28,7 +28,7 @@ type ChapterInfo struct {
 
 // surah info
 type SurahIndexPrefixed struct {
-	Prefixes []string
+	Prefixes    []string
 	ChaptersIdx ChaptersIdx
 }
 
@@ -85,6 +85,7 @@ type WordVerse struct {
 	Id       int
 	VerseKey string `json:"verse_key"`
 	Words    []Word
+	IndexForTrans int `json:",omitempty"`
 }
 
 type Word struct {
