@@ -29,7 +29,7 @@ var tnaslaitonList = []string{"english/clear_quran/"}
 
 func GetArabicAyas(index string) (Ayas, error) {
 	var ayas Ayas
-	arabicFile, err := os.Open("static/json/arabic/" + index + ".json")
+	arabicFile, err := os.Open(StaticDir + "/json/arabic/" + index + ".json")
 	if err != nil {
 		return ayas, err
 	}
@@ -49,7 +49,7 @@ func GetArabicAyas(index string) (Ayas, error) {
 
 func GetSurahInfo(index string) (ChapterInfo, error) {
 	var surahInfo ChapterInfo
-	surahInfoFile, err := os.Open("static/json/chapters/" + index + ".json")
+	surahInfoFile, err := os.Open(StaticDir + "/json/chapters/" + index + ".json")
 	if err != nil {
 		return surahInfo, err
 	}
@@ -65,7 +65,7 @@ func GetSurahInfo(index string) (ChapterInfo, error) {
 
 func GetBanglaTranslation(index string) (TranslatedVerses, error) {
 	var banglaTrans TranslatedVerses
-	surahBangla, err := os.Open("static/json/bangla/" + index + ".json")
+	surahBangla, err := os.Open(StaticDir + "/json/bangla/" + index + ".json")
 	if err != nil {
 		return banglaTrans, err
 	}
@@ -82,7 +82,7 @@ func GetTransLations(index string) ([]TranslatedVerses, error) {
 	var translations []TranslatedVerses
 	// Trnaslations
 	for i, path := range tnaslaitonList {
-		translationFile, err := os.Open("static/json/" + path + index + ".json")
+		translationFile, err := os.Open(StaticDir + "/json/" + path + index + ".json")
 		if err != nil {
 			return nil, err
 		}
@@ -100,7 +100,7 @@ func GetTransLations(index string) ([]TranslatedVerses, error) {
 
 func GetWordByWord(index, lang string) ([]WordByWord, error) {
 	var words []WordByWord
-	path := "static/json/word_by_word/" + lang + "/" + index + "/"
+	path := StaticDir + "/json/word_by_word/" + lang + "/" + index + "/"
 	pages, err := GetPageNumbers(path)
 	if err != nil {
 		return nil, err

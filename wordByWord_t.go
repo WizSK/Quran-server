@@ -38,10 +38,10 @@ func wordByWordTranslation(w http.ResponseWriter, r *http.Request, index, lang s
 		return "err"
 	}
 
-	wordHmtl, err := template.ParseFiles("static/html/word_trans.html",
-		"static/html/common.html",
-		"static/js/common.js",
-		"static/css/wordByWord.css",
+	wordHmtl, err := template.ParseFiles(StaticDir+"/html/word_trans.html",
+		StaticDir+"/html/common.html",
+		StaticDir+"/js/common.js",
+		StaticDir+"/css/wordByWord.css",
 	)
 	if err != nil {
 		fmt.Println(err)

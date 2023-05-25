@@ -7,7 +7,8 @@ import (
 )
 
 // var Cache bool = QuranCacheEnv()
-var Cache bool = false
+var Cache bool = true
+const StaticDir string = "static/"
 
 func main() {
 	http.HandleFunc("/", rootHandler)
@@ -17,13 +18,13 @@ func main() {
 	http.HandleFunc("/t/", wordTHandler)
 
 	var err error
-	port := ":8080"
+	port := ":8001"
 	if len(os.Args) == 2 {
 		port = ":" + os.Args[1]
 		fmt.Printf("Running at: http://localhost%s/ \n\n", port)
 		err = http.ListenAndServe(port, nil)
 	} else {
-		fmt.Printf("Running at: http://localhost%s/ \n\n", port)
+		fmt.Printf("Running at: http://localhost%s/\nOr on your docker specified port \n\n", port)
 		err = http.ListenAndServe(port, nil)
 	}
 
@@ -42,4 +43,14 @@ func QuranCacheEnv() bool {
 	}
 	fmt.Printf("\nCACHE = True\n")
 	return true
+}
+
+func StaticDirEnv() string {
+	c := os.Getenv("STATIC_DIR")
+	if c == "" {
+		fmt.Printf("static file dir `static`\n\n")
+		return "static"
+	}
+	fmt.Printf("static file dir `%s`\n\n", c)
+	return c
 }

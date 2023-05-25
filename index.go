@@ -28,7 +28,7 @@ func getIndex(w http.ResponseWriter, r *http.Request, prefix string) string {
 	// const surahUrl string = "https://api.quran.com/api/v4/chapters"
 	suras := new(bytes.Buffer)
 	// resp, err := http.Get(url)
-	resp, err := os.Open("static/json/chapters.json")
+	resp, err := os.Open(StaticDir + "/json/chapters.json")
 	if err != nil {
 		fmt.Println(err)
 		return "err"
@@ -56,7 +56,7 @@ func getIndex(w http.ResponseWriter, r *http.Request, prefix string) string {
 	// prefixedSurah.ChaptersIdx.Chapters[0].Id
 	// prefixedSurah.Prefixes[0]
 
-	p, err := template.ParseFiles("static/html/index.html", "static/css/index.css", "static/html/common.html")
+	p, err := template.ParseFiles(StaticDir+"/html/index.html", StaticDir+"/css/index.css", StaticDir+"/html/common.html")
 	if err != nil {
 		fmt.Println(err)
 		return "err"
