@@ -1,7 +1,19 @@
 // {{ define "theme-js" }}
+
 const Classes = document.body.classList;
+function getBrowserPreferredTheme() {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    if (mediaQuery.matches) {
+        Classes.add("dark");
+    }else {
+        Classes.add("light");
+    }
+
+    // return mediaQuery.matches ? "dark" : "light";
+}
+getBrowserPreferredTheme()
+
 const themeTgl = document.getElementById("theme-tgl")
-Classes.add("dark");
 themeTgl.addEventListener("click", () => {
     if (Classes.contains("dark")) {
         Classes.remove("dark");

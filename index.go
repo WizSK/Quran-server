@@ -56,7 +56,7 @@ func getIndex(w http.ResponseWriter, r *http.Request, prefix string) string {
 	// prefixedSurah.ChaptersIdx.Chapters[0].Id
 	// prefixedSurah.Prefixes[0]
 
-	p, err := template.ParseFiles(StaticDir+"/html/index.html", StaticDir+"/css/index.css", StaticDir+"/html/common.html")
+	p, err := template.ParseFiles(StaticDir+"/html/index.html", StaticDir+"/css/index.css", StaticDir+"/html/common.html", StaticDir+"/js/common.js")
 	if err != nil {
 		fmt.Println(err)
 		return "err"

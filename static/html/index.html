@@ -4,13 +4,11 @@
 </style>
 {{ template "midHeader" "Quran" }}
 
-<h1 class="alquran-headline">
-  <span>The Quran </span><img src="/static/images/quran.png" alt="Quean pic">
-</h1>
+<h1 class="alquran-headline">The Quran</h1>
+<button id="theme-tgl">Theme</button>
 	<!--  prefixedSurah.ChaptersIdx.Chapters[0].Id -->
 	<!--  prefixedSurah.Chapters.Chapters[0].Id -->
 	<!--  prefixedSurah.Prefixes[0] -->
-
 <div id="root">
 {{ range $i, $val := .ChaptersIdx.Chapters }}
 <a class="surah-link" href="{{ (index $.Prefixes $i) }}">
@@ -18,12 +16,15 @@
   <p>
     <span class="surah-no">{{ $val.Id }}</span>
     <span>{{ $val.Name }}</span>
-    <span class="arabic-surah-name-li">{{ $val.AraName }}</span>
   </p>
 </div>
 </a>
 {{ end }}
 
 </div>
+
+<script>
+{{ template "theme-js" }}
+</script>
 
 {{ template "footer" }}

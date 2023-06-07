@@ -6,16 +6,20 @@
     box-sizing: border-box;
 }
 
-
-@font-face {
-    font-family: arabic-c-font;
-    src: url(/static/fonts/arabic);
-}
-
-
 @font-face {
     font-family: english-font;
     src: url(/static/fonts/english);
+}
+
+.light {
+    background-color: #F2F3F5;
+    color: #111810;
+}
+
+.dark {
+    background: #231c1c;
+    color: #ffffff;
+
 }
 
 body {
@@ -25,66 +29,62 @@ body {
     padding: 0;
 }
 
-.arabic-surah-name-li {
-    font-family: arabic-c-font;
-    font-weight: 300;
-}
-
 .alquran-headline {
+    margin-top: 2rem;
     text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 0.5rem;
 }
 
-.alquran-headline img {
-    display: inline-block;
-    width: 4rem;
-}
 
 #root {
-    margin: 1rem 1rem;
+    margin: 1rem 10rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 1rem;
+    gap: 3rem;
 }
 
 
+
+/* surah link means intire surah */
+.dark .surah-link{
+    /* background-color: rgb(245, 245, 245); */
+    border: solid 2px rgb(245, 245, 245);
+}
+
+.light .surah-link {
+    border: solid 2px rgb(29, 29, 29);
+    background-color: rgb(245, 245, 245);
+}
+
 .surah-link {
+    border-radius: 0.5rem;
     text-decoration: none;
     color: inherit;
+}
+.surah-link:hover {
+    background-color: rgb(125, 125, 125);
 }
 
 .surah p {
     margin: 0;
-    background-color: rgb(230, 251, 251);
-    padding: 1rem 0.5rem;
-    border-radius: 0.5em;
-    font-weight: 600;
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-    align-items: center;
+    padding: 1rem 1.8rem;
+    padding-left: 0.5rem;
     transition: background-color 400ms ease-in-out;
 }
 
-.surah p .surah-no {
-    color: rgb(22, 22, 22);
-    font-weight: 300;
+
+.surah-no {
     margin-left: 0.5rem;
+    margin-right: 0.8rem;
 }
 
-.surah p:hover {
-    background-color: rgb(159, 248, 248);
-}
+@media (max-width: 768px) {
+    .alquran-headline {
+        font-size: 3rem;
+    }
 
-.arabic-surah-name-li {
-    margin-left: auto;
-    margin-right: 0.5rem;
+    #root {
+        margin: 1.7rem;
+    }
 }
 
 {{ end }}
