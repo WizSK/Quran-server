@@ -61,7 +61,8 @@ addEventListener("keydown", (e) => {
             break;
 
         case "t":
-            themeTgl()
+            themeTgl();
+            break;
 
         // this shoud not run on index pages
         case "+", "=":
@@ -119,7 +120,6 @@ const font = {
     }
 }
 
-// event linteners
 fontPlus.addEventListener("click", font.increase);
 fontMinus.addEventListener("click", font.decrease);
 
