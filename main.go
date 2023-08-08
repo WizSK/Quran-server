@@ -7,7 +7,7 @@ import (
 )
 
 // var Cache bool = QuranCacheEnv()
-var Cache bool = false
+var Cache bool = true
 const StaticDir string = "static/"
 
 func main() {
