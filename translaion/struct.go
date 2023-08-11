@@ -10,6 +10,10 @@ type Translation struct {
 	Meta struct {
 		Author          string `json:"author_name"`
 		TranslationName string `json:"translation_name"`
+		Filters         struct {
+			ResourceId    int `json:"resource_id"`
+			ChapterNumber string `json:"chapter_number"`
+		}
 	}
 }
 
